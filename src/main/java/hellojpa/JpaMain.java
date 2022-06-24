@@ -17,10 +17,6 @@ public class JpaMain {
 
         // code 작성
         try {
-            // 영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZ");
-
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
