@@ -1,6 +1,5 @@
 package hellojpa;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -18,21 +17,16 @@ public class JpaMain {
 
         // code 작성
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
             Member member = new Member();
             member.setUserName("member1");
-            member.changeTeam(team);
+
             em.persist(member);
 
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
 
-            for (Member m : members) {
-                System.out.println("m.getUserName() = " + m.getUserName());
-            }
+            em.persist(team);
 
             tx.commit();
         } catch (Exception e) {
